@@ -1,0 +1,41 @@
+class Solution {
+    public int splitArray(int[] nums, int k) {
+       if (k > nums.length) return -1;
+        int low=0;
+        int sum=0;
+       for(int i=0;i<nums.length;i++){
+            low=Math.max(low,nums[i]);
+           sum=sum+nums[i];
+       }
+       int high=sum;
+       int ans=low;
+       while(low<=high){
+        int mid=low+(high-low)/2;
+        int answer=findmin(nums,mid);
+        if(answer<=k){
+            ans=mid;
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+       }
+    return ans;
+        
+    }
+
+    public static int  findmin(int[]arr,int mid){
+        int subarray=1;
+        int sumarr=0;
+        for(int i=0;i<arr.length;i++){
+            if(sumarr+arr[i]<=mid){
+                sumarr=sumarr+arr[i];
+            }
+            else{
+                subarray++;
+                sumarr=arr[i];
+            }
+        }
+        return subarray;
+    }
+}
