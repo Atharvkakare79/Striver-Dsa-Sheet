@@ -1,0 +1,36 @@
+int solution(String typedText) {
+    int upperCount = 0;
+    int lowerCount = 0;
+
+    for (int i = 0; i < typedText.length(); i++) {
+        char ch = typedText.charAt(i);
+        if (Character.isUpperCase(ch)) {
+            upperCount++;
+        } else if (Character.isLowerCase(ch)) {
+            lowerCount++;
+        }
+    }
+
+    return upperCount - lowerCount;
+}
+
+
+
+import java.util.regex.*;
+
+int solution(String typedText) {
+    int upperCount = 0;
+    int lowerCount = 0;
+
+    for (int i = 0; i < typedText.length(); i++) {
+        char ch = typedText.charAt(i);
+        if (String.valueOf(ch).matches("[A-Z]")) {
+            upperCount++;
+        } else if (String.valueOf(ch).matches("[a-z]")) {
+            lowerCount++;
+        }
+    }
+
+    return upperCount - lowerCount;
+}
+
