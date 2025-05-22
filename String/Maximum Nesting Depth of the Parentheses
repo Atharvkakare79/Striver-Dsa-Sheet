@@ -1,0 +1,41 @@
+----USING STACK----
+
+
+class Solution {
+    public int maxDepth(String s) {
+        Stack<Character>stack=new Stack<>();
+        int count=0;
+        for(char c:s.toCharArray()){
+            if(c=='('){
+                stack.push(c);
+               count= Math.max(count,stack.size());
+                
+            }
+            if(c==')'){
+                stack.pop();
+            }
+        }
+     return count;
+    }
+}
+
+
+----USING STRING----
+
+class Solution {
+    public int maxDepth(String s) {
+        int count = 0;     // current depth
+        int maxCount = 0;  // max depth found
+
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                count++;                      // increase current depth
+                maxCount = Math.max(maxCount, count);
+            } else if (c == ')') {
+                count--;                      // decrease current depth
+            }
+        }
+
+        return maxCount;
+    }
+}
