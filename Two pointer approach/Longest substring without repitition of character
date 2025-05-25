@@ -1,0 +1,107 @@
+----BRUTE FORCE  APPROACH----
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxlength=0;
+        for(int i=0;i<s.length();i++){
+            int[]freq=new int[256];
+            for(int j=i;j<s.length();j++){
+               char c=s.charAt(j);
+               if(freq[c]==1){
+                break;
+            }
+                freq[c]=1;
+                maxlength=Math.max(maxlength,j-i+1);
+         }
+
+        }
+        return maxlength;
+        
+    }
+}
+
+
+
+----OPTIMAL----
+SLIDING WINDOW
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxlength=0;
+        int left=0;
+        
+        int freq[]=new int[256];
+        for(int right=0;right<s.length();right++){
+            char c=s.charAt(right);
+            freq[c]++;
+
+            while(freq[c]>1){
+                freq[s.charAt(left)]--;
+                left++;
+            }
+            maxlength=Math.max(maxlength,right-left+1);
+        
+
+        }
+        return maxlength;
+    }
+}
+
+
+
+----USING HASHSET(SLIDING WINDOW)-----
+
+
+import java.util.HashSet;
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int left = 0, maxLength = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+
+            // Remove from the left until duplicate is gone
+            while (set.contains(c)) {
+                set.remove(s.charAt(left));
+                left++;
+            }
+
+            set.add(c);
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+}
+
+
+
+
+----USING HASHMAP----
+
+
+
+import java.util.HashMap;
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0, maxLength = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+
+            if (map.containsKey(c) && map.get(c) >= left) {
+                // Jump left to one position after previous occurrence
+                left = map.get(c) + 1;
+            }
+
+            map.put(c, right);  // update last seen index
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+}
