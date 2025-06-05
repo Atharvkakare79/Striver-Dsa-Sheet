@@ -1,0 +1,27 @@
+public ListNode merge(ListNode lefthead,ListNode righthead){
+        ListNode dummynode=new ListNode(-1);
+        ListNode temp=dummynode;
+        ListNode temp1=lefthead;
+        ListNode temp2=righthead;
+        while(temp1!=null && temp2!=null){
+        if(temp1.val>temp2.val){
+            temp.next=temp2;
+            temp=temp2;
+            temp2=temp2.next;
+         }
+         else{
+            temp.next=temp1;
+            temp=temp1;
+            temp1=temp1.next;
+         }
+        
+     }
+      if(temp1!=null){
+            temp.next=temp1;
+         }
+         else{
+            temp.next=temp2;
+         }   
+         return dummynode.next;
+
+    }
