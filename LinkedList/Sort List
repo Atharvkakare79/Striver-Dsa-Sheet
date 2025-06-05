@@ -1,0 +1,85 @@
+----BRUTE FORCE----
+
+
+class Solution {
+    public ListNode sortList(ListNode head) {
+            ListNode temp=head;
+        ArrayList<Integer>list=new ArrayList<>();
+
+            while(temp!=null){
+                list.add(temp.val);
+                temp=temp.next;
+
+            }
+            Collections.sort(list);
+             temp=head;
+
+            for(int num:list){
+                temp.val=num;
+                temp=temp.next;
+            }
+        return head;
+    }
+}
+
+
+
+----OPTIMAL SOLUTION----
+
+
+class Solution {
+    public ListNode sortList(ListNode head) {
+           if(head==null || head.next==null){
+            return head;
+           } 
+           ListNode middle=findmiddle(head);
+           ListNode lefthead=head;
+           ListNode righthead=middle.next;
+           middle.next=null;
+
+           lefthead=sortList(lefthead);
+           righthead=sortList(righthead);
+           return merge(lefthead,righthead);
+    }
+
+    public ListNode findmiddle(ListNode head){
+        ListNode slow=head;
+        ListNode fast=head.next;
+
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+         return slow;
+    }
+
+    public ListNode merge(ListNode lefthead,ListNode righthead){
+        ListNode dummynode=new ListNode(-1);
+        ListNode temp=dummynode;
+        ListNode temp1=lefthead;
+        ListNode temp2=righthead;
+        while(temp1!=null && temp2!=null){
+        if(temp1.val>temp2.val){
+            temp.next=temp2;
+            temp=temp2;
+            temp2=temp2.next;
+         }
+         else{
+            temp.next=temp1;
+            temp=temp1;
+            temp1=temp1.next;
+         }
+        
+     }
+      if(temp1!=null){
+            temp.next=temp1;
+         }
+         else{
+            temp.next=temp2;
+         }   
+         return dummynode.next;
+
+    }
+
+
+}
