@@ -1,0 +1,33 @@
+class Solution {
+    public static ArrayList<ArrayList<Integer>> findPairsWithGivenSum(int target, Node head) {
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+
+        Node temp1 = head;
+        Node temp2 = head;
+
+        // Move temp2 to the end of the doubly linked list
+        while (temp2.next != null) {
+            temp2 = temp2.next;
+        }
+
+        // Two-pointer approach
+        while (temp1 != null && temp2 != null && temp1 != temp2 && temp2.next != temp1) {
+            int sum = temp1.data + temp2.data;
+
+            if (sum == target) {
+                ArrayList<Integer> pair = new ArrayList<>();
+                pair.add(temp1.data);
+                pair.add(temp2.data);
+                list.add(pair);
+                temp1 = temp1.next;
+                temp2 = temp2.prev;
+            } else if (sum < target) {
+                temp1 = temp1.next;
+            } else {  // sum > target
+                temp2 = temp2.prev;
+            }
+        }
+
+        return list;
+    }
+}
