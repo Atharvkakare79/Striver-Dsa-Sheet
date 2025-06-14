@@ -1,0 +1,35 @@
+class Solution {
+    static class Item{
+        int value,weight;
+        double ratio;
+        Item(int value,int weight){
+            this.value=value;
+            this.weight=weight;
+            this.ratio=(double)value/weight;
+        }
+    }
+    double fractionalKnapsack(int[] values, int[] weights, int W) {
+        int n=values.length;
+        Item[] items=new Item[n];
+        for(int i=0;i<n;i++){
+            items[i]=new Item(values[i],weights[i]);
+        }
+      Arrays.sort(items,(a,b)->Double.compare(b.ratio,a.ratio));
+      double total=0.0;
+      int remaincapacity=W;
+      
+      for(Item item:items){
+          if(remaincapacity>=item.weight){
+              total=total+item.value;
+              remaincapacity=remaincapacity-item.weight;
+          }
+          else{
+              total=total+item.ratio*remaincapacity;
+              break;
+          }
+      }
+      
+     return Math.round(total * 1e6) / 1e6; 
+        
+    }
+}
