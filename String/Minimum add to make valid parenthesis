@@ -1,0 +1,56 @@
+----using stack----
+
+
+
+class Solution {
+    public int minAddToMakeValid(String s) {
+        int extra=0;
+
+        Stack<Character>stack=new Stack<>();
+
+        for(char ch:s.toCharArray()){
+            if(ch=='('){
+                stack.push(ch);
+            }
+            else if(!(stack.isEmpty()) && ch==')'){
+                stack.pop();
+            }
+            else{
+                    extra++;
+            }
+        } 
+
+        return stack.size()+extra;
+        
+    }
+}
+
+
+
+o(1) space
+
+
+
+
+class Solution {
+    public int minAddToMakeValid(String s) {
+
+        int opening=0;
+        int preclosing=0;
+
+        for(char ch:s.toCharArray()){
+            if(opening==0 && ch==')'){
+                preclosing++;
+        }
+            else if(ch=='('){
+                opening++;
+
+            }
+            else if(ch==')'){
+                opening--;
+            }
+
+        }
+        return opening+preclosing;
+    }
+}
