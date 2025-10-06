@@ -1,0 +1,76 @@
+// Stack implementation in Java using array
+class Stack {
+    int top;
+    int[] arr;
+    int capacity;
+
+    // Constructor to initialize the stack
+    Stack(int size) {
+        arr = new int[size];
+        capacity = size;
+        top = -1;
+    }
+
+    // Push element onto the stack
+    void push(int x) {
+        if (top == capacity - 1) {
+            System.out.println("Stack Overflow");
+            return;
+        }
+        arr[++top] = x;
+        System.out.println(x + " pushed into stack");
+    }
+
+    // Pop element from the stack
+    int pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return arr[top--];
+    }
+
+    // Peek top element without removing it
+    int peek() {
+        if (top == -1) {
+            System.out.println("Stack is Empty");
+            return -1;
+        }
+        return arr[top];
+    }
+
+    // Check if the stack is empty
+    boolean isEmpty() {
+        return top == -1;
+    }
+
+    // Display all elements in the stack
+    void display() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty");
+            return;
+        }
+        System.out.print("Stack elements: ");
+        for (int i = 0; i <= top; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Main method to test the stack
+    public static void main(String[] args) {
+        Stack stack = new Stack(5);
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.display();
+
+        System.out.println("Top element: " + stack.peek());
+
+        System.out.println(stack.pop() + " popped from stack");
+        stack.display();
+
+        System.out.println("Is stack empty? " + stack.isEmpty());
+    }
+}
