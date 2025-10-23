@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Main {
+    public static List<Integer> maxSlidingWindow(int[] arr, int k) {
+        List<Integer> result = new ArrayList<>();
+        Deque<Integer> dq = new LinkedList<>(); // stores indices
+        
+        for (int i = 0; i < arr.length; i++) {
+            
+            // 1️⃣ Remove elements out of the current window
+            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+                dq.pollFirst();
+            }
+
+            // 2️⃣ Remove all smaller elements (they are useless)
+            while (!dq.isEmpty() && arr[dq.peekLast()] < arr[i]) {
+                dq.pollLast();
+            }
+
+            // 3️⃣ Add current element index
+            dq.offerLast(i);
+
+            // 4️⃣ Add the current max to result once the first window is complete
+            if (i >= k - 1) {
+                result.add(arr[dq.peekFirst()]);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 1, 4, 5, 2, 3, 6};
+        int k = 3;
+        System.out.println(maxSlidingWindow(arr, k)); 
+    }
+}
