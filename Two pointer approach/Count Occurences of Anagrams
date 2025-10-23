@@ -1,0 +1,42 @@
+class Solution {
+
+    int search(String pat, String txt) {
+        int count = 0;
+        int k = pat.length();
+        int[] freq = new int[26];
+
+        // Step 1: Build frequency array for pattern
+        for(int i = 0; i < k; i++){
+            freq[pat.charAt(i) - 'a']++;
+        }
+
+        int left = 0;
+
+        // Step 2: Sliding window
+        for(int right = 0; right < txt.length(); right++){
+            // Subtract entering character
+            freq[txt.charAt(right) - 'a']--;
+
+            // If window size exceeds pattern length, restore leftmost char
+            if(right - left + 1 > k){
+                freq[txt.charAt(left) - 'a']++;
+                left++;
+            }
+
+            // If window size == pattern length, check for an anagram
+            if(right - left + 1 == k && allzero(freq)){
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // Helper to check if all elements are zero
+    private boolean allzero(int freq[]){
+        for(int f : freq){
+            if(f != 0) return false;
+        }
+        return true;
+    }
+}
