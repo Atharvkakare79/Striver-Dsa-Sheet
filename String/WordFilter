@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class WordFilter {
+    public static List<String> filterWords(List<String> words, String letters) {
+        Set<Character> letterSet = new HashSet<>();
+        for (char c : letters.toCharArray()) {
+            letterSet.add(c);
+        }
+
+        List<String> result = new ArrayList<>();
+        for (String word : words) {
+            for (char c : word.toCharArray()) {
+                if (letterSet.contains(c)) {
+                    result.add(word);
+                    break;  // move to next word once a matching letter is found
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("apple", "banana", "cherry", "date");
+        String letters = "ab";
+        List<String> filtered = filterWords(words, letters);
+        System.out.println(filtered); // Output: [apple, banana, date]
+    }
+}
